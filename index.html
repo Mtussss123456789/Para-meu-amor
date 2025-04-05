@@ -15,6 +15,27 @@
       overflow-x: hidden;
     }
 
+    .music {
+      margin-top: 20px;
+    }
+
+    .info {
+      font-size: 14px;
+      margin-bottom: 10px;
+      opacity: 0.7;
+    }
+
+    .player-button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: none;
+      background-color: #0066cc;
+      color: white;
+      cursor: pointer;
+    }
+
     .carousel {
       width: 100%;
       max-width: 300px;
@@ -71,11 +92,14 @@
 </head>
 <body>
 
-  <!-- Áudio invisível com autoplay -->
-  <audio autoplay loop style="display: none;">
-    <source src="https://github.com/Mtussss123456789/Para-meu-amor/raw/9de4e533b0995694f81af3e8e2ea4935cef6bca7/aliança.mp3" type="audio/mpeg">
-    Seu navegador não suporta o áudio.
-  </audio>
+  <!-- Player de música -->
+  <div class="music">
+    <div class="info">Toque para ouvir: "Aliança - Tribalistas"</div>
+    <audio id="audioPlayer" src="https://raw.githubusercontent.com/Mtussss123456789/Para-meu-amor/main/aliança.mp3"></audio>
+    <button class="player-button" onclick="document.getElementById('audioPlayer').play()">
+      ▶️ Tocar Música
+    </button>
+  </div>
 
   <!-- Carrossel -->
   <div class="carousel">

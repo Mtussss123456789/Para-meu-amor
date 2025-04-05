@@ -26,7 +26,7 @@
     }
 
     .player-button {
-      display: none; /* Esconde o botão visível */
+      display: none;
     }
 
     .carousel {
@@ -89,7 +89,7 @@
   <div class="music">
     <div class="info">"Aliança - Tribalistas"</div>
     <audio id="audioPlayer" src="https://raw.githubusercontent.com/Mtussss123456789/Para-meu-amor/main/aliança.mp3"></audio>
-    <button class="player-button" onclick="document.getElementById('audioPlayer').play()">Tocar</button>
+    <button id="autoplayBtn" class="player-button">Play</button>
   </div>
 
   <!-- Carrossel -->
@@ -158,17 +158,16 @@
     }
     setInterval(criarCoracao, 300);
 
-    // Tentativa de autoplay
-    window.addEventListener("DOMContentLoaded", () => {
-      const audio = document.getElementById("audioPlayer");
+    // Simular clique invisível para autoplay
+    window.addEventListener("load", () => {
+      const btn = document.getElementById("autoplayBtn");
       setTimeout(() => {
-        const playPromise = audio.play();
-        if (playPromise !== undefined) {
-          playPromise.catch(err => {
-            console.log("Autoplay bloqueado pelo navegador.");
-          });
-        }
-      }, 1000);
+        btn.click(); // Clica no botão escondido
+      }, 1000); // Espera 1 segundo
+    });
+
+    document.getElementById("autoplayBtn").addEventListener("click", () => {
+      document.getElementById("audioPlayer").play();
     });
   </script>
 </body>

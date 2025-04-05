@@ -1,190 +1,183 @@
-<!DOCTYPE html><html lang="pt-br"><head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Para Meu Amor</title>
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #0b0c2a;
+      background-color: #0d1021;
       color: white;
+      font-family: Arial, sans-serif;
       overflow-x: hidden;
-    }.container {
-  text-align: center;
-  padding: 20px;
-}
+    }
 
-.box {
-  background-color: rgba(255, 255, 255, 0.1);
-  border: 1px solid white;
-  border-radius: 10px;
-  padding: 20px;
-  margin: 20px auto;
-  max-width: 90%;
-}
+    #entrada {
+      background: black;
+      color: white;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
 
-.emoji {
-  position: absolute;
-  font-size: 24px;
-  animation: fall 5s linear infinite;
-}
+    #entrada h1 {
+      background: red;
+      color: white;
+      padding: 20px 40px;
+      border-radius: 50px;
+      font-size: 24px;
+    }
 
-@keyframes fall {
-  0% {
-    top: -10%;
-    opacity: 1;
-  }
+    #entrada p {
+      margin-top: 20px;
+      font-size: 18px;
+    }
 
-  100% {
-    top: 110%;
-    opacity: 0;
-  }
-}
+    #conteudo {
+      display: none;
+      padding: 20px;
+      text-align: center;
+    }
 
-.carrossel {
-  margin: 20px auto;
-  max-width: 300px;
-  border-radius: 10px;
-  overflow: hidden;
-}
+    .caixa-texto {
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 1px solid white;
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 20px;
+    }
 
-.contador {
-  font-size: 20px;
-  margin-bottom: 20px;
-}
+    .emoji {
+      position: fixed;
+      font-size: 24px;
+      animation: cair 4s linear infinite;
+      pointer-events: none;
+    }
 
-.invisivel {
-  display: none;
-}
+    @keyframes cair {
+      0% {
+        transform: translateY(-100px);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+    }
 
-.player-container {
-  margin-top: 20px;
-}
+    #contador {
+      font-weight: bold;
+      font-size: 18px;
+    }
 
-/* Tela inicial */
-#tela-inicial {
-  background-color: black;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 9999;
-}
+    .carrossel {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+    }
 
-.coracao {
-  position: relative;
-  width: 200px;
-  height: 180px;
-  cursor: pointer;
-}
+    .carrossel img {
+      width: 200px;
+      height: 200px;
+      border-radius: 20px;
+      object-fit: cover;
+      margin: 0 10px;
+    }
 
-.coracao::before,
-.coracao::after {
-  content: "";
-  position: absolute;
-  width: 100px;
-  height: 160px;
-  background: red;
-  border-radius: 100px 100px 0 0;
-  top: 0;
-}
+    audio {
+      display: none;
+    }
 
-.coracao::before {
-  left: 50%;
-  transform: rotate(-45deg);
-  transform-origin: bottom left;
-}
+    #audioLabel {
+      margin-top: 10px;
+      font-size: 14px;
+    }
 
-.coracao::after {
-  left: 0;
-  transform: rotate(45deg);
-  transform-origin: bottom right;
-}
-
-.coracao-texto {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -40%);
-  color: white;
-  text-align: center;
-  font-size: 18px;
-  font-weight: bold;
-}
-
+    #coração-texto {
+      background: pink;
+      color: darkred;
+      padding: 40px;
+      border-radius: 50% 50% 40% 40% / 60% 60% 40% 40%;
+      width: 300px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 16px;
+    }
   </style>
-</head><body>
-  <div id="tela-inicial">
-    <div class="coracao" onclick="entrarSite()">
-      <div class="coracao-texto">Uma<br>lembrança<br>eterna</div>
-    </div>
-    <p style="color: white; margin-top: 40px;">clique para entrar</p>
-  </div>  <div class="container" id="conteudo-site" style="display: none;">
-    <div class="player-container">
-      <p>Tocando: "Aliança - Tribalistas"</p>
-      <audio id="musica" controls>
-        <source src="https://mtussss123456789.github.io/Para-meu-amor/alianca.mp3" type="audio/mpeg">
-        Seu navegador não suporta o elemento de áudio.
-      </audio>
-    </div><div class="carrossel">
-  <img src="foto2.jpg" alt="Foto 2" style="width: 100%; border-radius: 10px;">
+</head>
+<body>
+
+<div id="entrada" onclick="iniciarSite()">
+  <h1>❤️ Uma lembrança eterna ❤️</h1>
+  <p>clique para entrar</p>
 </div>
 
-<div class="contador" id="contador"></div>
+<div id="conteudo">
+  <p id="audioLabel">Tocando: "Aliança - Tribalistas"</p>
+  <audio id="musica" autoplay loop>
+    <source src="https://mtussss123456789.github.io/Para-meu-amor/aliança.mp3" type="audio/mpeg">
+    Seu navegador não suporta áudio.
+  </audio>
 
-<div class="box">
-  <h2>❤️ Eu te amo há:</h2>
-  <p id="tempo-decorrido"></p>
-  <p>
-    A cada dia que passa, meu coração se enche mais de carinho e admiração por você.
-    Cada sorriso seu ilumina o meu mundo, e cada abraço me faz sentir que estou exatamente onde deveria estar.
-    Você é a razão dos meus melhores pensamentos, e tudo ao seu lado se torna mais bonito e significativo.
-    Eu te amo para sempre ❤️
-  </p>
+  <div class="carrossel">
+    <img src="foto1.jpg" alt="Foto 1"/>
+    <img src="foto2.jpg" alt="Foto 2"/>
+    <img src="foto3.jpg" alt="Foto 3"/>
+  </div>
+
+  <div class="caixa-texto">
+    <div id="contador">❤️ Eu te amo há: ...</div>
+    <p>
+      A cada dia que passa, meu coração se enche mais de carinho e admiração por você. Cada sorriso seu ilumina o meu mundo, e cada abraço me faz sentir que estou exatamente onde deveria estar. Você é a razão dos meus melhores pensamentos, e tudo ao seu lado se torna mais bonito e significativo. Eu te amo para sempre ❤️
+    </p>
+  </div>
 </div>
 
-  </div>  <script>
-    function entrarSite() {
-      document.getElementById('tela-inicial').style.display = 'none';
-      document.getElementById('conteudo-site').style.display = 'block';
-      document.getElementById('musica').play();
-    }
+<script>
+  const dataInicial = new Date("2024-06-26T00:00:00");
 
-    const inicio = new Date('2024-06-26T00:00:00');
-    function atualizarTempo() {
-      const agora = new Date();
-      const diff = agora - inicio;
+  function atualizarContador() {
+    const agora = new Date();
+    let diff = agora - dataInicial;
 
-      const anos = agora.getFullYear() - inicio.getFullYear();
-      const meses = agora.getMonth() - inicio.getMonth();
-      const dias = agora.getDate() - inicio.getDate();
-      const horas = agora.getHours();
-      const minutos = agora.getMinutes();
-      const segundos = agora.getSeconds();
+    const segundos = Math.floor(diff / 1000) % 60;
+    const minutos = Math.floor(diff / 1000 / 60) % 60;
+    const horas = Math.floor(diff / 1000 / 60 / 60) % 24;
+    const dias = Math.floor(diff / 1000 / 60 / 60 / 24);
+    const meses = Math.floor(dias / 30.44);
+    const anos = Math.floor(meses / 12);
 
-      const tempoTexto = `${anos} anos, ${meses} meses, ${dias} dias, ${horas} horas, ${minutos} minutos e ${segundos} segundos`;
-      document.getElementById('tempo-decorrido').innerHTML = tempoTexto + ' 😍';
-    }
-    setInterval(atualizarTempo, 1000);
-    atualizarTempo();
+    const diasR = dias % Math.floor(30.44);
+    const mesesR = meses % 12;
 
-    // Emojis animados
-    function criarEmoji() {
-      const emoji = document.createElement('div');
-      emoji.classList.add('emoji');
-      emoji.style.left = Math.random() * 100 + 'vw';
-      emoji.style.animationDuration = (Math.random() * 5 + 5) + 's';
-      emoji.innerHTML = '😍';
-      document.body.appendChild(emoji);
+    document.getElementById("contador").innerHTML = 
+      `❤️ Eu te amo há:<br><br>${anos} anos, ${mesesR} meses, ${diasR} dias, ${horas} horas, ${minutos} minutos e ${segundos} segundos 😍`;
+  }
 
-      setTimeout(() => {
-        emoji.remove();
-      }, 10000);
-    }
-    setInterval(criarEmoji, 300);
-  </script></body></html>
+  setInterval(atualizarContador, 1000);
+
+  function iniciarSite() {
+    document.getElementById("entrada").style.display = "none";
+    document.getElementById("conteudo").style.display = "block";
+    document.getElementById("musica").play();
+  }
+
+  function criarEmoji() {
+    const emoji = document.createElement("div");
+    emoji.classList.add("emoji");
+    emoji.innerText = "😍";
+    emoji.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(emoji);
+    setTimeout(() => emoji.remove(), 4000);
+  }
+
+  setInterval(criarEmoji, 300);
+</script>
+
+</body>
+</html>

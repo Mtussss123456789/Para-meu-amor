@@ -26,14 +26,7 @@
     }
 
     .player-button {
-      margin-top: 10px;
-      padding: 10px 20px;
-      font-size: 16px;
-      border-radius: 10px;
-      border: none;
-      background-color: #0066cc;
-      color: white;
-      cursor: pointer;
+      display: none; /* Esconde o botão visível */
     }
 
     .carousel {
@@ -94,11 +87,9 @@
 
   <!-- Player de música -->
   <div class="music">
-    <div class="info">Toque para ouvir: "Aliança - Tribalistas"</div>
+    <div class="info">"Aliança - Tribalistas"</div>
     <audio id="audioPlayer" src="https://raw.githubusercontent.com/Mtussss123456789/Para-meu-amor/main/aliança.mp3"></audio>
-    <button class="player-button" onclick="document.getElementById('audioPlayer').play()">
-      ▶️ Tocar Música
-    </button>
+    <button class="player-button" onclick="document.getElementById('audioPlayer').play()">Tocar</button>
   </div>
 
   <!-- Carrossel -->
@@ -166,6 +157,19 @@
       setTimeout(() => coracao.remove(), 5000);
     }
     setInterval(criarCoracao, 300);
+
+    // Tentativa de autoplay
+    window.addEventListener("DOMContentLoaded", () => {
+      const audio = document.getElementById("audioPlayer");
+      setTimeout(() => {
+        const playPromise = audio.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(err => {
+            console.log("Autoplay bloqueado pelo navegador.");
+          });
+        }
+      }, 1000);
+    });
   </script>
 </body>
 </html>

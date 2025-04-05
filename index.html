@@ -15,6 +15,37 @@
       overflow-x: hidden;
     }
 
+    /* Tela de entrada */
+    #intro {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: black;
+      color: white;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      transition: opacity 1s ease;
+    }
+
+    #intro h1 {
+      font-size: 28px;
+      background: red;
+      padding: 20px 40px;
+      border-radius: 50%;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
     .music {
       margin-top: 20px;
     }
@@ -25,8 +56,19 @@
       opacity: 0.7;
     }
 
-    .player-button {
-      display: none;
+    .player-container {
+      width: 100%;
+      max-width: 350px;
+      margin: auto;
+      overflow: hidden;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    }
+
+    audio {
+      width: 100%;
+      outline: none;
+      border-radius: 15px;
     }
 
     .carousel {
@@ -85,11 +127,21 @@
 </head>
 <body>
 
+  <!-- Tela de entrada -->
+  <div id="intro" onclick="iniciarSite()">
+    <h1>❤️ Uma lembrança eterna ❤️</h1>
+    <p>clique para entrar</p>
+  </div>
+
   <!-- Player de música -->
-  <div class="music">
-    <div class="info">"Aliança - Tribalistas"</div>
-    <audio id="audioPlayer" src="https://raw.githubusercontent.com/Mtussss123456789/Para-meu-amor/main/aliança.mp3"></audio>
-    <button id="autoplayBtn" class="player-button">Play</button>
+  <div class="music" id="site" style="display: none;">
+    <div class="info">Tocando: "Aliança - Tribalistas"</div>
+    <div class="player-container">
+      <audio id="musica" autoplay controls>
+        <source src="https://raw.githubusercontent.com/Mtussss123456789/Para-meu-amor/main/alian%C3%A7a.mp3" type="audio/mpeg">
+        Seu navegador não suporta áudio.
+      </audio>
+    </div>
   </div>
 
   <!-- Carrossel -->
@@ -112,6 +164,15 @@
   </div>
 
   <script>
+    function iniciarSite() {
+      document.getElementById("intro").style.opacity = 0;
+      setTimeout(() => {
+        document.getElementById("intro").style.display = "none";
+        document.getElementById("site").style.display = "block";
+        document.getElementById("musica").play();
+      }, 1000);
+    }
+
     function atualizarContador() {
       const inicio = new Date("2024-06-26T00:00:00");
       const agora = new Date();
@@ -157,18 +218,7 @@
       setTimeout(() => coracao.remove(), 5000);
     }
     setInterval(criarCoracao, 300);
-
-    // Simular clique invisível para autoplay
-    window.addEventListener("load", () => {
-      const btn = document.getElementById("autoplayBtn");
-      setTimeout(() => {
-        btn.click(); // Clica no botão escondido
-      }, 1000); // Espera 1 segundo
-    });
-
-    document.getElementById("autoplayBtn").addEventListener("click", () => {
-      document.getElementById("audioPlayer").play();
-    });
   </script>
+
 </body>
 </html>

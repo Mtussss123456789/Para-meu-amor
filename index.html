@@ -5,13 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Para Sempre Nós</title>
   <style>
-    body {
+    html, body {
       margin: 0;
       padding: 0;
       background: #0a0f2c;
       color: white;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       overflow-x: hidden;
+      overflow-y: auto;
     }
 
     #entrada {
@@ -28,20 +29,20 @@
       z-index: 999;
     }
 
-    #entrada h1 {
+    #entrada h2 {
       font-size: 2em;
       color: pink;
       margin-bottom: 20px;
       white-space: nowrap;
       overflow: hidden;
-      border-right: 2px solid white;
+      border-right: 3px solid white;
       width: 0;
-      animation: typing 3s steps(20, end) forwards, blink 0.7s infinite;
+      animation: typing 1.5s steps(30, end) forwards, blink 0.7s infinite;
     }
 
     @keyframes typing {
       from { width: 0 }
-      to { width: 15ch }
+      to { width: 19ch }
     }
 
     @keyframes blink {
@@ -64,49 +65,62 @@
       background: hotpink;
     }
 
+    .carousel-container {
+      width: 320px;
+      height: 400px;
+      margin: 40px auto;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(255, 192, 203, 0.4);
+      position: relative;
+    }
+
     .carousel {
       width: 100%;
-      max-width: 300px;
-      margin: 20px auto;
-      overflow: hidden;
-      border-radius: 15px;
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+      height: 100%;
+      position: relative;
     }
 
-    .carousel-images {
-      display: flex;
-      transition: transform 0.5s ease-in-out;
-      cursor: grab;
-    }
-
-    .carousel-images img {
+    .carousel img {
       width: 100%;
-      flex-shrink: 0;
-      border-radius: 15px;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .carousel img.active {
+      opacity: 1;
     }
 
     .contador {
-      font-size: 22px;
+      font-size: 20px;
       font-weight: bold;
-      margin-top: 10px;
-      padding: 10px;
+      margin: 20px auto;
+      padding: 15px;
       background: rgba(255, 255, 255, 0.2);
-      border-radius: 10px;
-      display: inline-block;
+      border-radius: 15px;
+      max-width: 300px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(255, 192, 203, 0.3);
     }
 
     .mensagem {
       max-width: 500px;
-      margin: 50px auto;
+      margin: 40px auto;
       font-size: 17px;
       line-height: 1.6;
       padding: 25px;
-      border: 2px solid white;
       border-radius: 25px;
-      background: rgba(255, 255, 255, 0.15);
+      background: linear-gradient(145deg, rgba(255,192,203,0.2), rgba(255,255,255,0.1));
       text-align: center;
-      box-shadow: 0 0 25px rgba(255, 192, 203, 0.3);
+      box-shadow: 0 0 30px rgba(255, 192, 203, 0.4);
       backdrop-filter: blur(6px);
+      border: 2px dashed pink;
     }
 
     .mensagem p {
@@ -116,11 +130,12 @@
     }
 
     .coracao {
-      position: absolute;
+      position: fixed;
       color: #ff69b4;
       font-size: 1.5rem;
       animation: cair linear infinite;
       z-index: 1;
+      pointer-events: none;
     }
 
     @keyframes cair {
@@ -132,57 +147,103 @@
       display: none;
     }
 
-    @media (max-width: 600px) {
-      .mensagem {
-        margin: 30px 10px;
-        padding: 20px;
-        font-size: 16px;
-      }
+    /* Mensagem de volume no TOPO */
+    .volume-alert {
+      position: fixed;
+      top: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.9);
+      color: #ff69b4;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(255, 105, 180, 0.5);
+      z-index: 1000;
+      animation: pulse 2s infinite;
+      display: none;
+      text-align: center;
+      font-size: 18px;
     }
+
+    @keyframes pulse {
+      0% { transform: translateX(-50%) scale(1); }
+      50% { transform: translateX(-50%) scale(1.05); }
+      100% { transform: translateX(-50%) scale(1); }
+    }
+    
+    /* estilo para o copyright */
+    .copyright {
+      text-align: center;
+      margin-top: 40px;
+      padding: 15px;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 14px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+    
   </style>
 </head>
 <body>
 
   <!-- Tela Inicial -->
   <div id="entrada">
-    <h1>  PARA SEMPRE NÓS  </h1>
+    <h2>💓Para Sempre Nós!💓</h2>
     <button id="botaoEntrar">Entrar</button>
   </div>
 
+  <!-- Mensagem de Volume -->
+  <div class="volume-alert" id="volumeAlert">
+   ⚠️ Aumente o volume⚠️
+</div>
+
   <!-- Música -->
-  <audio id="audio" autoplay loop>
-    <source src="https://raw.githubusercontent.com/Mtussss123456789/Para-meu-amor/main/alian%C3%A7a.mp3" type="audio/mpeg">
+  <audio id="audio" loop>
+    <source src="https://github.com/Mtussss123456789/Para-meu-amor/raw/main/aliança.mp3?raw=true" type="audio/mpeg">
   </audio>
 
-  <!-- Carrossel -->
-  <div class="carousel" id="carouselContainer">
-    <div class="carousel-images" id="carousel">
-      <img src="https://raw.githubusercontent.com/Mtussss123456789/Para-meu-amor/b5e3fa4ee5622c757a348af762887bfc75e85c63/1%20minha%20e%20jub.PNG" alt="Foto 1">
-      <img src="https://raw.githubusercontent.com/Mtussss123456789/Para-meu-amor/b5e3fa4ee5622c757a348af762887bfc75e85c63/2%20minha%20e%20jub.PNG" alt="Foto 2">
-      <img src="https://raw.githubusercontent.com/Mtussss123456789/Para-meu-amor/b5e3fa4ee5622c757a348af762887bfc75e85c63/3%20minha%20e%20jub.PNG" alt="Foto 3">
-      <img src="" alt="Foto 4">
-      <img src="https://raw.githubusercontent.com/Mtussss123456789/Para-meu-amor/main/2%20minha%20e%20jub.jpg" alt="Foto Extra">
+  <!-- Carrossel Automático -->
+  <div class="carousel-container">
+    <div class="carousel" id="carousel">
+      <img src="https://github.com/Mtussss123456789/Para-meu-amor/raw/main/1%20minha%20e%20jub.PNG?raw=true" alt="Foto 1" class="active">
+      <img src="https://github.com/Mtussss123456789/Para-meu-amor/raw/main/2%20minha%20e%20jub.PNG?raw=true" alt="Foto 2">
+      <img src="https://github.com/Mtussss123456789/Para-meu-amor/raw/main/3%20minha%20e%20jub.PNG?raw=true" alt="Foto 3">
+      <img src="https://github.com/Mtussss123456789/Para-meu-amor/raw/main/4%20minha%20e%20jub.PNG?raw=true" alt="Foto 4">
     </div>
   </div>
 
-  <!-- Contador -->
-  <div class="contador" id="contador"></div>
-
-  <!-- Mensagem -->
-  <div class="mensagem">
+  <!-- Contador de Tempo -->
+  <div class="contador" id="contador">
     ❤️ Eu te amo há:<br>
     <span id="tempo"></span>
-    <p>A cada dia que passa, meu coração se enche mais de carinho e admiração por você. Cada sorriso seu ilumina o meu mundo, e cada abraço me faz sentir que estou exatamente onde deveria estar. Você é a razão dos meus melhores pensamentos, e tudo ao seu lado se torna mais bonito e significativo. Eu te amo para sempre ❤️</p>
+  </div>
+
+  <!-- Mensagem Romântica -->
+  <div class="mensagem">
+    <p>A cada dia que passa, meu coração se enche mais de carinho e admiração por você. Cada sorriso seu ilumina o meu mundo, e cada abraço me faz sentir que estou exatamente onde deveria estar. Você é a razão dos meus melhores pensamentos. Eu te amo para sempre ❤️</p>
+  </div>
+
+  <!-- Copyright no rodapé -->
+  <div class="copyright">
+    © 2024 Para Sempre Nós - Criado com ❤️ por [Mateus]
   </div>
 
   <script>
-    // Tela inicial
+    // Música e mensagem de volume
     document.getElementById('botaoEntrar').addEventListener('click', () => {
+      const volumeAlert = document.getElementById('volumeAlert');
+      volumeAlert.style.display = 'block';
+      
       document.getElementById('entrada').style.display = 'none';
-      document.getElementById('audio').play().catch(() => {});
+      const audio = document.getElementById('audio');
+      audio.play().catch(() => console.log("Erro ao tocar música."));
+      
+      setTimeout(() => {
+        volumeAlert.style.display = 'none';
+      }, 5000);
     });
 
-    // Contador
+    // Contador de Tempo Juntos
     function atualizarContador() {
       const inicio = new Date("2024-06-26T00:00:00");
       const agora = new Date();
@@ -210,90 +271,7 @@
     setInterval(atualizarContador, 1000);
     atualizarContador();
 
-    // Carrossel automático e com arraste
-    let index = 0;
-    const carousel = document.getElementById("carousel");
-    const total = carousel.children.length;
-    const carouselContainer = document.getElementById("carouselContainer");
-
-    let interval = setInterval(() => {
-      index = (index + 1) % total;
-      updateCarousel();
-    }, 3000);
-
-    function updateCarousel() {
-      carousel.style.transition = 'transform 0.5s ease-in-out';
-      carousel.style.transform = `translateX(-${index * 100}%)`;
-    }
-
-    let isDragging = false;
-    let startX = 0;
-
-    carouselContainer.addEventListener('mousedown', (e) => {
-      isDragging = true;
-      startX = e.pageX;
-      carousel.style.transition = 'none';
-      clearInterval(interval);
-    });
-
-    carouselContainer.addEventListener('mousemove', (e) => {
-      if (!isDragging) return;
-      const diff = e.pageX - startX;
-      carousel.style.transform = `translateX(${ -index * 100 + (diff / carouselContainer.offsetWidth) * 100 }%)`;
-    });
-
-    carouselContainer.addEventListener('mouseup', (e) => {
-      if (!isDragging) return;
-      isDragging = false;
-      const diff = e.pageX - startX;
-      if (diff < -50) index = Math.min(index + 1, total - 1);
-      else if (diff > 50) index = Math.max(index - 1, 0);
-      updateCarousel();
-      interval = setInterval(() => {
-        index = (index + 1) % total;
-        updateCarousel();
-      }, 3000);
-    });
-
-    carouselContainer.addEventListener('mouseleave', () => {
-      if (isDragging) {
-        isDragging = false;
-        updateCarousel();
-        interval = setInterval(() => {
-          index = (index + 1) % total;
-          updateCarousel();
-        }, 3000);
-      }
-    });
-
-    // Touch para celular
-    carouselContainer.addEventListener('touchstart', (e) => {
-      isDragging = true;
-      startX = e.touches[0].pageX;
-      carousel.style.transition = 'none';
-      clearInterval(interval);
-    });
-
-    carouselContainer.addEventListener('touchmove', (e) => {
-      if (!isDragging) return;
-      const diff = e.touches[0].pageX - startX;
-      carousel.style.transform = `translateX(${ -index * 100 + (diff / carouselContainer.offsetWidth) * 100 }%)`;
-    });
-
-    carouselContainer.addEventListener('touchend', (e) => {
-      if (!isDragging) return;
-      isDragging = false;
-      const diff = e.changedTouches[0].pageX - startX;
-      if (diff < -50) index = Math.min(index + 1, total - 1);
-      else if (diff > 50) index = Math.max(index - 1, 0);
-      updateCarousel();
-      interval = setInterval(() => {
-        index = (index + 1) % total;
-        updateCarousel();
-      }, 3000);
-    });
-
-    // Emojis caindo
+    // Corações caindo
     function criarCoracao() {
       const coracao = document.createElement("div");
       coracao.classList.add("coracao");
@@ -304,6 +282,22 @@
       setTimeout(() => coracao.remove(), 5000);
     }
     setInterval(criarCoracao, 200);
+
+    // Carrossel Automático
+    const images = document.querySelectorAll('.carousel img');
+    let currentIndex = 0;
+    
+    function showNextImage() {
+      images[currentIndex].classList.remove('active');
+      currentIndex = (currentIndex + 1) % images.length;
+      images[currentIndex].classList.add('active');
+    }
+    
+    setInterval(showNextImage, 4000);
+    
+    images.forEach((img, index) => {
+      if (index !== 0) img.classList.remove('active');
+    });
   </script>
 </body>
 </html>

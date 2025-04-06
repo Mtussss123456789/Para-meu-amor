@@ -4,9 +4,9 @@ Esse site foi feito com muito carinho (e um toque de loucura romântica) pra alg
 
 O que tem aqui?
 
-Emojis 😍 caindo sem parar porque o amor é exagerado mesmo.
+Emojis 😻 caindo sem parar porque o amor é exagerado mesmo.
 
-Um carrossel com fotos fofas (ou zoeiras, depende do humor).
+Um carrossel com fotos megas fofas
 
 Um contador mostrando exatamente há quanto tempo a gente tá nessa jornada juntos (desde 26/06/2024).
 
